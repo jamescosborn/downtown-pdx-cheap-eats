@@ -91,7 +91,24 @@ namespace RestaurantDatabase.Models
 
     public static void DestroyById(int id)
     {
-      
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM cuisines WHERE id = @CuisineId;";
+
+      MySqlParameter cuisineId = new MySqlParameter();
+      cuisineId.ParameterName = "@CuisineId";
+      cuisineId.Value = id;
+      cmd.Parameters.Add(cuisineId);
+
+      cmd.ExecuteNonQuery();
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
     }
 
     public void Save()
