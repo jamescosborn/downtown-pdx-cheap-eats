@@ -82,5 +82,37 @@ namespace RestaurantDatabase.Models.Tests
 
       Assert.AreEqual(true, result);
     }
+    [TestMethod]
+    public void Update_UpdateCuisineInDatabase_CuisineWithNewInfo()
+    {
+      Cuisine initialCuisine = new Cuisine("Italian");
+      initialCuisine.Save();
+      Cuisine newCuisine = new Cuisine("Mexican", initialCuisine.Id);
+      initialCuisine.Update(newCuisine);
+      Cuisine updatedCuisine = Cuisine.FindById(initialCuisine.Id);
+
+      bool result = updatedCuisine.HasSamePropertiesAs(newCuisine);
+
+      Assert.AreEqual(true, result);
+    }
+    [TestMethod]
+    public void DestroyById_RemovesEntryFromDatabase_EntryRemoved()
+    {
+      Cuisine cuisine1 = new Cuisine("Italian");
+      cuisine1.Save();
+      Cuisine cuisine2 = new Cuisine("Chinese");
+      cuisine2.Save();
+      Cuisine cuisine3 = new Cuisine("Mexican");
+      cuisine3.Save();
+      Cuisine.DestroyById(cuisine2.Id);
+      List<Cuisine> remainingCuisines = Cuisine.GetAll();
+
+      bool result = (
+        cuisine1.HasSamePropertiesAs(remainingCuisines[0]) &&
+        cuisine3.HasSamePropertiesAs(remainingCuisines[1])
+      );
+
+      Assert.AreEqual(true, result);
+    }
   }
 }

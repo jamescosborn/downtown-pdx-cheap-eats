@@ -89,6 +89,11 @@ namespace RestaurantDatabase.Models
       return output;
     }
 
+    public static void DestroyById(int id)
+    {
+      
+    }
+
     public void Save()
     {
       MySqlConnection conn = DB.Connection();
@@ -104,6 +109,33 @@ namespace RestaurantDatabase.Models
 
       cmd.ExecuteNonQuery();
       this.Id = (int)cmd.LastInsertedId;
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
+
+    public void Update(Cuisine newCuisine)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"UPDATE cuisines SET name = @NewName WHERE id = @CuisineId;";
+
+      MySqlParameter newName = new MySqlParameter();
+      newName.ParameterName = "@NewName";
+      newName.Value = newCuisine.Name;
+      cmd.Parameters.Add(newName);
+
+      MySqlParameter cuisineId = new MySqlParameter();
+      cuisineId.ParameterName = "@CuisineId";
+      cuisineId.Value = this.Id;
+      cmd.Parameters.Add(cuisineId);
+
+      cmd.ExecuteNonQuery();
 
       conn.Close();
       if (conn != null)
