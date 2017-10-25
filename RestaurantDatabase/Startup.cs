@@ -36,6 +36,6 @@ namespace RestaurantDatabase
   }
   public static class DBConfiguration
   {
-    public static string ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=dining;";
+    public static string ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=best_restaurants;";
   }
 }
