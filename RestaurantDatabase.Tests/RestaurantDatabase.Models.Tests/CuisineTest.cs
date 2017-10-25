@@ -14,6 +14,7 @@ namespace RestaurantDatabase.Models.Tests
     }
     public void Dispose()
     {
+      Restaurant.ClearAll();
       Cuisine.ClearAll();
     }
 
@@ -110,6 +111,24 @@ namespace RestaurantDatabase.Models.Tests
       bool result = (
         cuisine1.HasSamePropertiesAs(remainingCuisines[0]) &&
         cuisine3.HasSamePropertiesAs(remainingCuisines[1])
+      );
+
+      Assert.AreEqual(true, result);
+    }
+    [TestMethod]
+    public void GetRestaurants_RestaurantsAreStoredUnderCorrectCuisineType_Restaurants()
+    {
+      Cuisine cuisine = new Cuisine("Italian");
+      cuisine.Save();
+      Restaurant localRestaurant1 = new Restaurant("Gugino's", cuisine.Id);
+      localRestaurant1.Save();
+      Restaurant localRestaurant2 = new Restaurant("Pepino's", cuisine.Id);
+      localRestaurant2.Save();
+      List<Restaurant> restaurantsInCuisine = cuisine.GetRestaurants();
+
+      bool result = (
+        restaurantsInCuisine[0].HasSamePropertiesAs(localRestaurant1) &&
+        restaurantsInCuisine[1].HasSamePropertiesAs(localRestaurant2)
       );
 
       Assert.AreEqual(true, result);

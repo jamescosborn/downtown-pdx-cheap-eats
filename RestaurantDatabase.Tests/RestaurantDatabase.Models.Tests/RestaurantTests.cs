@@ -19,7 +19,8 @@ namespace RestaurantDatabase.Models.Tests
     [TestMethod]
     public void GetAll_DatabaseIsEmptyAtFirst_0()
     {
-      int result = Restaurant.GetAll().Count;
+      List<Restaurant> restaurants = Restaurant.GetAll();
+      int result = restaurants.Count;
 
       Assert.AreEqual(0, result);
     }
@@ -95,9 +96,9 @@ namespace RestaurantDatabase.Models.Tests
     [TestMethod]
     public void Update_UpdateRestaurantInDatabase_RestaurantWithNewInfo()
     {
-      Restaurant initialRestaurant = new Restaurant("Pepino's");
+      Restaurant initialRestaurant = new Restaurant("Pepino's", 0);
       initialRestaurant.Save();
-      Restaurant newRestaurant = new Restaurant("Gugino's", initialRestaurant.Id);
+      Restaurant newRestaurant = new Restaurant("Gugino's", 0, initialRestaurant.Id);
       initialRestaurant.Update(newRestaurant);
       Restaurant updatedRestaurant = Restaurant.FindById(initialRestaurant.Id);
 
@@ -108,9 +109,9 @@ namespace RestaurantDatabase.Models.Tests
     [TestMethod]
     public void Update_UpdateMultipleFieldsRestaurantInDatabase_RestaurantWithNewInfo()
     {
-      Restaurant initialRestaurant = new Restaurant("Pepino's", "123 Four St.", "555-5555", "www.pepinos.com", "$$$$", "4.7");
+      Restaurant initialRestaurant = new Restaurant("Pepino's", "123 Four St.", "555-5555", "www.pepinos.com", "$$$$", "4.7", 0);
       initialRestaurant.Save();
-      Restaurant newRestaurant = new Restaurant("Not Pepino's", "A different St.", "444-4444", "www.notpepinos.com", "$$$", "4.2", initialRestaurant.Id);
+      Restaurant newRestaurant = new Restaurant("Not Pepino's", "A different St.", "444-4444", "www.notpepinos.com", "$$$", "4.2", 0, initialRestaurant.Id);
       initialRestaurant.Update(newRestaurant);
       Restaurant updatedRestaurant = Restaurant.FindById(initialRestaurant.Id);
 

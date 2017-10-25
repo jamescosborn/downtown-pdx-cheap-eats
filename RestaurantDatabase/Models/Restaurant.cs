@@ -13,8 +13,9 @@ namespace RestaurantDatabase.Models
     public string Website {get; private set;}
     public string Cost {get; private set;}
     public string Rating {get; private set;}
+    public int CuisineId {get; private set;}
 
-    public Restaurant(string name, int id = 0)
+    public Restaurant(string name, int cuisineId = 0, int id = 0)
     {
       Name = name;
       Address = "";
@@ -23,9 +24,10 @@ namespace RestaurantDatabase.Models
       Cost = "";
       Rating = "";
       Id = id;
+      CuisineId = cuisineId;
     }
 
-    public Restaurant(string name, string address, string phone, string website, string cost, string rating, int id = 0)
+    public Restaurant(string name, string address, string phone, string website, string cost, string rating, int cuisineId = 0, int id = 0)
     {
       Name = name;
       Address = address;
@@ -34,6 +36,7 @@ namespace RestaurantDatabase.Models
       Cost = cost;
       Rating = rating;
       Id = id;
+      CuisineId = cuisineId;
     }
 
     public static List<Restaurant> GetAll()
@@ -55,7 +58,8 @@ namespace RestaurantDatabase.Models
         string website = rdr.GetString(4);
         string cost = rdr.GetString(5);
         string rating = rdr.GetString(6);
-        Restaurant newRestaurant = new Restaurant(name, address, phone, website, cost, rating, id);
+        int cuisineId = rdr.GetInt32(7);
+        Restaurant newRestaurant = new Restaurant(name, address, phone, website, cost, rating, cuisineId, id);
         output.Add(newRestaurant);
       }
 
@@ -103,6 +107,7 @@ namespace RestaurantDatabase.Models
       string restaurantWebsite = "";
       string restaurantCost = "";
       string restaurantRating = "";
+      int cuisineId = 0;
 
       var rdr = cmd.ExecuteReader() as MySqlDataReader;
       while(rdr.Read())
@@ -114,8 +119,9 @@ namespace RestaurantDatabase.Models
         restaurantWebsite = rdr.GetString(4);
         restaurantCost = rdr.GetString(5);
         restaurantRating = rdr.GetString(6);
+        cuisineId = rdr.GetInt32(7);
       }
-      Restaurant output = new Restaurant(restaurantName, restaurantAddress, restaurantPhone, restaurantWebsite, restaurantCost, restaurantRating, restaurantId);
+      Restaurant output = new Restaurant(restaurantName, restaurantAddress, restaurantPhone, restaurantWebsite, restaurantCost, restaurantRating, cuisineId, restaurantId);
 
       conn.Close();
       if (conn != null)
@@ -153,7 +159,7 @@ namespace RestaurantDatabase.Models
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO restaurants (name, address, phone, website, cost, rating) VALUES (@Name, @Address, @Phone, @Website, @Cost, @Rating);";
+      cmd.CommandText = @"INSERT INTO restaurants (name, address, phone, website, cost, rating, cuisine_id) VALUES (@Name, @Address, @Phone, @Website, @Cost, @Rating, @CuisineId);";
 
       MySqlParameter name = new MySqlParameter();
       name.ParameterName = "@Name";
@@ -185,6 +191,11 @@ namespace RestaurantDatabase.Models
       rating.Value = this.Rating;
       cmd.Parameters.Add(rating);
 
+      MySqlParameter cuisineId = new MySqlParameter();
+      cuisineId.ParameterName = "@CuisineId";
+      cuisineId.Value = this.CuisineId;
+      cmd.Parameters.Add(cuisineId);
+
       cmd.ExecuteNonQuery();
       this.Id = (int)cmd.LastInsertedId;
 
@@ -201,7 +212,7 @@ namespace RestaurantDatabase.Models
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE restaurants SET name = @NewName, address = @NewAddress, phone = @NewPhone, website = @NewWebsite, cost = @NewCost, rating = @NewRating WHERE id = @RestaurantId;";
+      cmd.CommandText = @"UPDATE restaurants SET name = @NewName, address = @NewAddress, phone = @NewPhone, website = @NewWebsite, cost = @NewCost, rating = @NewRating, cuisine_id = @NewCuisineId WHERE id = @RestaurantId;";
 
       MySqlParameter newName = new MySqlParameter();
       newName.ParameterName = "@NewName";
@@ -233,6 +244,11 @@ namespace RestaurantDatabase.Models
       newRating.Value = newRestaurant.Rating;
       cmd.Parameters.Add(newRating);
 
+      MySqlParameter cuisineId = new MySqlParameter();
+      cuisineId.ParameterName = "@NewCuisineId";
+      cuisineId.Value = newRestaurant.CuisineId;
+      cmd.Parameters.Add(cuisineId);
+
       MySqlParameter restaurantId = new MySqlParameter();
       restaurantId.ParameterName = "@RestaurantId";
       restaurantId.Value = newRestaurant.Id;
@@ -256,7 +272,8 @@ namespace RestaurantDatabase.Models
         this.Phone == other.Phone &&
         this.Website == other.Website &&
         this.Cost == other.Cost &&
-        this.Rating == other.Rating);
+        this.Rating == other.Rating &&
+        this.CuisineId == other.CuisineId);
     }
   }
 }

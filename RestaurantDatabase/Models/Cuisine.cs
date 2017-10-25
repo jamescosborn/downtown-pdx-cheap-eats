@@ -161,6 +161,11 @@ namespace RestaurantDatabase.Models
       }
     }
 
+    public List<Restaurant> GetRestaurants()
+    {
+      return new List<Restaurant> {};
+    }
+
     public bool HasSamePropertiesAs(Cuisine other)
     {
       return (
