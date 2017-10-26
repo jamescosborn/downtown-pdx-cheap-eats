@@ -26,6 +26,11 @@ body, html {
   font-size: 80px;
 }
 
+.header-link:hover {
+  text-decoration: none;
+  color: #d9534f;
+}
+
 .container {
   background-color: white;
   height: 100%;
