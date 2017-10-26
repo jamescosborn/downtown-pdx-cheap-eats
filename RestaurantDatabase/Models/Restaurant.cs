@@ -85,6 +85,7 @@ namespace RestaurantDatabase.Models
       {
         conn.Dispose();
       }
+      Review.ClearAll();
     }
 
     public static Restaurant FindById(int searchId)
@@ -261,6 +262,39 @@ namespace RestaurantDatabase.Models
       {
         conn.Dispose();
       }
+    }
+
+    public List<Review> GetReviews()
+    {
+      List<Review> output = new List<Review> {};
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM reviews WHERE restaurant_id = @RestaurantId;";
+
+      MySqlParameter restaurantIdParameter = new MySqlParameter();
+      restaurantIdParameter.ParameterName = "@RestaurantId";
+      restaurantIdParameter.Value = this.Id;
+      cmd.Parameters.Add(restaurantIdParameter);
+
+      var rdr = cmd.ExecuteReader() as MySqlDataReader;
+      while(rdr.Read())
+      {
+        int id = rdr.GetInt32(0);
+        string comment = rdr.GetString(1);
+        string author = rdr.GetString(2);
+        int restaurantId = rdr.GetInt32(3);
+        Review newReview = new Review(comment, author, restaurantId, id);
+        output.Add(newReview);
+      }
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return output;
     }
 
     public bool HasSamePropertiesAs(Restaurant other)

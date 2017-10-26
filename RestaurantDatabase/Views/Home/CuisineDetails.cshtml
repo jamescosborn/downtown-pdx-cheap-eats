@@ -1,9 +1,11 @@
 @{
   Layout = "_Layout";
 }
+<div class="fluid-container">
+  @Html.Partial("SiteHeader")
+</div>
 
 <div class="container">
-  @Html.Partial("SiteHeader")
   @Html.Partial("CuisineDetails/RestaurantList")
   @Html.Partial("CuisineDetails/AddRestaurantForm")
 </div>

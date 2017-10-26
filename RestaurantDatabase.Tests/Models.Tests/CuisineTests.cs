@@ -14,7 +14,6 @@ namespace RestaurantDatabase.Models.Tests
     }
     public void Dispose()
     {
-      Restaurant.ClearAll();
       Cuisine.ClearAll();
     }
 

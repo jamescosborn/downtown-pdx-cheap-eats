@@ -55,6 +55,7 @@ namespace RestaurantDatabase.Models
       {
         conn.Dispose();
       }
+      Restaurant.ClearAll();
     }
 
     public static Cuisine FindById(int searchId)

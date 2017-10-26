@@ -1,8 +1,30 @@
+body, html {
+  height: 100%;
+}
+
+.bg {
+  /*background-image: url(../img/gradient.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;*/
+}
+
 .jumbotron {
   background-image: url(../img/banner-bg.png);
   background-size: cover;
-  background-position: 0px 240px;
+  background-position: 0px 80%;
   height: 200px;
+}
+
+.container {
+  background-color: white;
+  height: 100%;
+}
+
+.well {
+  /*background-image: url(../img/fallcolor.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;*/
 }
 
 .jumbotron h1 {
@@ -13,17 +35,14 @@
   font-size: 80px;
 }
 
-body, html {
-  height: 100%;
-}
-
-.bg {
-  background-image: url(../img/gradient.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100%;
-}
-
 .cuisine-entry {
   font-size: 30px;
+}
+
+label {
+  font-size: 16px;
+}
+
+.btn {
+  font-size: 16px;
 }

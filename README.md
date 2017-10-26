@@ -27,3 +27,15 @@ Example Output: All Italian restaurants are displayed to the user.
 Description: User can add a reservation to a specific restaurant.
 Example Input: User makes a reservation at 'SFNY Pizza.'
 Example Output: User gets a "Reservation Confirmed!" message.
+
+Description: Comments have a description and an author.
+Example Input: Leave a comment: "This is my comment" Your name: "Anakin"
+Example Output: "This is my comment" -Anakin
+
+Description: User can leave a comment on a restaurant.
+Example Input: User says, "Ok food, great service."
+Example Output: Darth Vader said, "Ok food, great service."
+
+Description: Restaurants can have many comments.
+Example Input: Leave comment on Pepino's Restaurant.
+Example Output: Pepino's -7 comments.

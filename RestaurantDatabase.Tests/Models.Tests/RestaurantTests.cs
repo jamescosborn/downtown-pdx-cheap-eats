@@ -138,6 +138,29 @@ namespace RestaurantDatabase.Models.Tests
 
       Assert.AreEqual(true, result);
     }
+    [TestMethod]
+    public void GetReviews_ReviewsAreStoredUnderCorrectCuisineType_Reviews()
+    {
+      Restaurant restaurant1 = new Restaurant("Pepino's");
+      restaurant1.Save();
+      Restaurant restaurant2 = new Restaurant("Not Pepino's");
+      restaurant2.Save();
+      Review localReview1 = new Review("This is very Italian", "ItalianGuy2453", restaurant1.Id);
+      localReview1.Save();
+      Review localReview2 = new Review("This is very French", "NotItalianGuy2453", restaurant1.Id);
+      localReview2.Save();
+      Review localReview3 = new Review("This is not very Mexican", "TheRealPepino", restaurant2.Id);
+      localReview3.Save();
+      Review localReview4 = new Review("This is not very Pepino", "NotFakePepino", restaurant2.Id);
+      localReview4.Save();
+      List<Review> reviewsInRestaurant = restaurant1.GetReviews();
 
+      bool result = (
+        reviewsInRestaurant[0].HasSamePropertiesAs(localReview1) &&
+        reviewsInRestaurant[1].HasSamePropertiesAs(localReview2)
+      );
+
+      Assert.AreEqual(true, result);
+    }
   }
 }
