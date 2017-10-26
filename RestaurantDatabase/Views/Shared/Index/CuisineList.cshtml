@@ -1,9 +1,25 @@
 @using RestaurantDatabase.Models;
 
-<h2>Cuisines:</h2>
-<ul>
-  @foreach(Cuisine cuisine in Model)
+<h2>What kind of food do you want?</h2>
+  @for(int i = 0; i < Model.Count; i += 2)
   {
-  <li><a href="/cuisines/@cuisine.Id">@cuisine.Name</a></li>
+    <div class="row">
+      <div class="col-md-6">
+        <a href="/cuisines/@Model[i]">
+          <div class="well cuisine-entry">
+            @Model[i].Name
+          </div>
+        </a>
+      </div>
+      <div class="col-md-6">
+      @if(i + 1 < Model.Count)
+      {
+        <a href="/cuisines/@Model[i + 1]">
+          <div class="well cuisine-entry">
+            @Model[i + 1].Name
+          </div>
+        </a>
+      }
+      </div>
+    </div>
   }
-</ul>
