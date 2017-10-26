@@ -50,5 +50,18 @@ namespace RestaurantDatabase.Controllers
         CuisineDetailsModel model = new CuisineDetailsModel(cuisineId);
         return View("CuisineDetails", model);
       }
+
+      [HttpPost("/cuisines/{cuisineId}/restaurants/{restaurantId}/reviews/add")]
+      public ActionResult AddReviewToRestaurant(int cuisineId, int restaurantId)
+      {
+        string reviewComment = Request.Form["review-comment"];
+        string reviewAuthor = Request.Form["review-author"];
+
+        Review newReview = new Review(reviewComment, reviewAuthor, restaurantId);
+        newReview.Save();
+
+        CuisineDetailsModel model = new CuisineDetailsModel(cuisineId);
+        return View("CuisineDetails", model);
+      }
     }
 }

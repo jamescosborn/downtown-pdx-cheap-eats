@@ -11,5 +11,25 @@
     <p><a href="http://@restaurant.Website">@restaurant.Website</a></p>
     <p>@restaurant.Cost</p>
     <p>@restaurant.Rating</p>
+
+    @foreach(Review review in @Model.RestaurantReviews[restaurant.Id])
+    {
+      <hr>
+      <p>@review.Comment</p>
+      <p>--@review.Author</p>
+    }
+
+    <hr>
+    <form action="/cuisines/@Model.CurrentCuisine.Id/restaurants/@restaurant.Id/reviews/add" method="post">
+      <div class="form-group">
+        <label for="review-author">Your Name:</label>
+        <input class="form-control" id="review-author" name="review-author" type="text">
+      </div>
+      <div class="form-group">
+        <label for="review-comment">Comment:</label>
+        <textarea class="form-control" id="review-comment" name="review-comment"></textarea>
+      </div>
+      <button class="btn" type="submit">Add a review</button>
+    </form>
   </div>
 }
