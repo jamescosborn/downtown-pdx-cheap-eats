@@ -6,11 +6,11 @@ using RestaurantDatabase.Models;
 namespace RestaurantDatabase.Models.Tests
 {
   [TestClass]
-  public class CuisineTest : IDisposable
+  public class CuisineTests : IDisposable
   {
-    public CuisineTest()
+    public CuisineTests()
     {
-      DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=best_restaurants_test;";
+      DBConfiguration.ConnectionString = "server=localhost; user id=root; password=root; port=8889; database=best_restaurants_test;";
     }
     public void Dispose()
     {
@@ -118,13 +118,19 @@ namespace RestaurantDatabase.Models.Tests
     [TestMethod]
     public void GetRestaurants_RestaurantsAreStoredUnderCorrectCuisineType_Restaurants()
     {
-      Cuisine cuisine = new Cuisine("Italian");
-      cuisine.Save();
-      Restaurant localRestaurant1 = new Restaurant("Gugino's", cuisine.Id);
+      Cuisine cuisine1 = new Cuisine("Italian");
+      cuisine1.Save();
+      Cuisine cuisine2 = new Cuisine("Mexican");
+      cuisine2.Save();
+      Restaurant localRestaurant1 = new Restaurant("Gugino's", cuisine1.Id);
       localRestaurant1.Save();
-      Restaurant localRestaurant2 = new Restaurant("Pepino's", cuisine.Id);
+      Restaurant localRestaurant2 = new Restaurant("Pepino's", cuisine1.Id);
       localRestaurant2.Save();
-      List<Restaurant> restaurantsInCuisine = cuisine.GetRestaurants();
+      Restaurant localRestaurant3 = new Restaurant("Not Gugino's", cuisine2.Id);
+      localRestaurant3.Save();
+      Restaurant localRestaurant4 = new Restaurant("Not Pepino's", cuisine2.Id);
+      localRestaurant4.Save();
+      List<Restaurant> restaurantsInCuisine = cuisine1.GetRestaurants();
 
       bool result = (
         restaurantsInCuisine[0].HasSamePropertiesAs(localRestaurant1) &&

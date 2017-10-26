@@ -1,0 +1,15 @@
+@using RestaurantDatabase.Models;
+
+<h2>@Model.CurrentCuisine.Name Food Places:</h2>
+
+@foreach (Restaurant restaurant in @Model.Restaurants)
+{
+  <div class="well">
+    <h3>@restaurant.Name</h3>
+    <p>@restaurant.Address</p>
+    <p>@restaurant.Phone</p>
+    <p>@restaurant.Website</p>
+    <p>@restaurant.Cost</p>
+    <p>@restaurant.Rating</p>
+  </div>
+}

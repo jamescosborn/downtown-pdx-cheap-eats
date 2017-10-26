@@ -1,0 +1,9 @@
+@using RestaurantDatabase.Models;
+
+<h2>Cuisines:</h2>
+<ul>
+  @foreach(Cuisine cuisine in Model)
+  {
+  <li><a href="/cuisines/@cuisine.Id">@cuisine.Name</a></li>
+  }
+</ul>

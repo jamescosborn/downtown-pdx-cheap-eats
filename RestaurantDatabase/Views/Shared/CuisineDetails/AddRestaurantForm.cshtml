@@ -1,0 +1,39 @@
+<h2>Add a new restaurant:</h2>
+<form action="/cuisines/@Model.CurrentCuisine.Id/restaurants/add" method="post">
+  <div class="form-group">
+    <label for="restaurant-name">Name:</label>
+    <input class="form-control" id="restaurant-name" name="restaurant-name" type="text">
+  </div>
+  <div class="form-group">
+    <label for="restaurant-address">Address:</label>
+    <input class="form-control" id="restaurant-address" name="restaurant-address" type="text">
+  </div>
+  <div class="form-group">
+    <label for="restaurant-phone">Phone Number:</label>
+    <input class="form-control" id="restaurant-phone" name="restaurant-phone" type="text">
+  </div>
+  <div class="form-group">
+    <label for="restaurant-website">Website:</label>
+    <input class="form-control" id="restaurant-website" name="restaurant-website" type="text">
+  </div>
+  <div class="form-group">
+    <label for="restaurant-cost">Cost:</label>
+    <select class="form-control" id="restaurant-cost" name="restaurant-cost">
+      <option value="$">$</option>
+      <option value="$$">$$</option>
+      <option value="$$$">$$$</option>
+      <option value="$$$$">$$$$</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="restaurant-rating">Rating:</label>
+    <select class="form-control" id="restaurant-rating" name="restaurant-rating">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </div>
+  <button class="btn" type="submit" name="submit-button">Add</button>
+</form>

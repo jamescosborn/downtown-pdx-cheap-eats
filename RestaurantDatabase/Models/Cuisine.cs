@@ -163,7 +163,39 @@ namespace RestaurantDatabase.Models
 
     public List<Restaurant> GetRestaurants()
     {
-      return new List<Restaurant> {};
+      List<Restaurant> output = new List<Restaurant> {};
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM restaurants WHERE cuisine_id = @CuisineId;";
+
+      MySqlParameter cuisineIdParameter = new MySqlParameter();
+      cuisineIdParameter.ParameterName = "@CuisineId";
+      cuisineIdParameter.Value = this.Id;
+      cmd.Parameters.Add(cuisineIdParameter);
+
+      var rdr = cmd.ExecuteReader() as MySqlDataReader;
+      while(rdr.Read())
+      {
+        int id = rdr.GetInt32(0);
+        string name = rdr.GetString(1);
+        string address = rdr.GetString(2);
+        string phone = rdr.GetString(3);
+        string website = rdr.GetString(4);
+        string cost = rdr.GetString(5);
+        string rating = rdr.GetString(6);
+        int cuisineId = rdr.GetInt32(7);
+        Restaurant newRestaurant = new Restaurant(name, address, phone, website, cost, rating, cuisineId, id);
+        output.Add(newRestaurant);
+      }
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return output;
     }
 
     public bool HasSamePropertiesAs(Cuisine other)
