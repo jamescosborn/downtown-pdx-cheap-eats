@@ -2,38 +2,38 @@
 <form action="/cuisines/@Model.CurrentCuisine.Id/restaurants/add" method="post">
   <div class="form-group">
     <label for="restaurant-name">Name:</label>
-    <input class="form-control" id="restaurant-name" name="restaurant-name" type="text">
+    <input class="form-control" id="restaurant-name" name="restaurant-name" type="text" required>
   </div>
   <div class="form-group">
     <label for="restaurant-address">Address:</label>
-    <input class="form-control" id="restaurant-address" name="restaurant-address" type="text">
+    <input class="form-control" id="restaurant-address" name="restaurant-address" type="text" required>
   </div>
   <div class="form-group">
     <label for="restaurant-phone">Phone Number:</label>
-    <input class="form-control" id="restaurant-phone" name="restaurant-phone" type="text">
+    <input class="form-control" id="restaurant-phone" name="restaurant-phone" type="text" required>
   </div>
   <div class="form-group">
     <label for="restaurant-website">Website:</label>
-    <input class="form-control" id="restaurant-website" name="restaurant-website" type="text">
+    <input class="form-control" id="restaurant-website" name="restaurant-website" type="text" required>
   </div>
   <div class="form-group">
     <label for="restaurant-cost">Cost:</label>
-    <select class="form-control" id="restaurant-cost" name="restaurant-cost">
-      <option value="$">$</option>
-      <option value="$$">$$</option>
-      <option value="$$$">$$$</option>
+    <select class="form-control" id="restaurant-cost" name="restaurant-cost" required>
       <option value="$$$$">$$$$</option>
+      <option value="$$$">$$$</option>
+      <option value="$$">$$</option>
+      <option value="$">$</option>
     </select>
   </div>
   <div class="form-group">
     <label for="restaurant-rating">Rating:</label>
-    <select class="form-control" id="restaurant-rating" name="restaurant-rating">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
+    <select class="form-control" id="restaurant-rating" name="restaurant-rating" required>
       <option value="5">5</option>
+      <option value="4">4</option>
+      <option value="3">3</option>
+      <option value="2">2</option>
+      <option value="1">1</option>
     </select>
   </div>
-  <button class="btn" type="submit" name="submit-button">Add</button>
+  <button class="btn btn-danger" type="submit" name="submit-button">Add</button>
 </form>

@@ -23,13 +23,17 @@
     <form action="/cuisines/@Model.CurrentCuisine.Id/restaurants/@restaurant.Id/reviews/add" method="post">
       <div class="form-group">
         <label for="review-author">Your Name:</label>
-        <input class="form-control" id="review-author" name="review-author" type="text">
+        <input class="form-control" id="review-author" name="review-author" type="text" required>
       </div>
       <div class="form-group">
         <label for="review-comment">Comment:</label>
-        <textarea class="form-control" id="review-comment" name="review-comment"></textarea>
+        <textarea class="form-control" id="review-comment" name="review-comment" required></textarea>
       </div>
-      <button class="btn" type="submit">Add a review</button>
+      <button class="btn btn-danger" type="submit">Add a review</button>
     </form>
   </div>
 }
+
+<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#AddRestaurantModal">Add a new restaurant</button>
+
+@Html.Partial("CuisineDetails/AddRestaurantModal")
